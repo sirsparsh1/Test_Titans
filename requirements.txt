@@ -1,0 +1,11 @@
+selenium
+behave
+pytest
+behave-html-formatter
+webdriver-manager
+allure-behave
+allure-pytest
+requests
+openpyxl
+faker
+pytest-html

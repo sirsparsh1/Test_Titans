@@ -1,0 +1,4 @@
+name,email,password
+Test User,test1@test.com,Test@123
+Test User,test2@test.com,Test@123
+Invalid User,,Test@123

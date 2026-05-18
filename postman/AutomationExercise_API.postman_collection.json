@@ -1,0 +1,24 @@
+{
+  "info": {
+    "name": "AutomationExercise_API",
+    "_postman_id": "12345678-abcd",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Products",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/productsList",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "productsList"
+          ]
+        }
+      }
+    }
+  ]
+}

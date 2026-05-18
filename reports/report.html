@@ -1,0 +1,178 @@
+Feature: Account Management # features/account_management.feature:1
+
+  Scenario: Update account info                 # features/account_management.feature:3
+    Given user is logged in                     # features/steps/account_steps.py:4
+    When user updates profile                   # features/steps/account_steps.py:9
+    Then profile should be updated successfully # features/steps/account_steps.py:14
+
+@api
+Feature: Products API # features/api_get_product.feature:2
+
+  Scenario: Get all products               # features/api_get_product.feature:4
+    Given products API endpoint            # features/steps/api.steps.py:4
+    When user sends GET request            # features/steps/api.steps.py:12
+    Then API response status should be 200 # features/steps/api.steps.py:18
+
+@api
+Feature: Products API # features/api_get_products.feature:2
+
+  Scenario: Get all products               # features/api_get_products.feature:4
+    Given products API endpoint            # features/steps/api.steps.py:4
+    When user sends GET request            # features/steps/api.steps.py:12
+    Then API response status should be 200 # features/steps/api.steps.py:18
+
+Feature: Brand Products # features/brand_products.feature:1
+
+  Scenario: View products by brand          # features/brand_products.feature:3
+    Given user opens products page          # features/steps/product_search_steps.py:6
+    When user selects brand "Polo"          # features/steps/brand_steps.py:5
+    Then brand products should be displayed # features/steps/brand_steps.py:11
+
+Feature: Checkout # features/checkout.feature:1
+
+  Scenario: Checkout order               # features/checkout.feature:3
+    Given product already added to cart  # features/steps/checkout_steps.py:7
+    When user proceeds to checkout       # features/steps/checkout_steps.py:23
+    Then order should place successfully # features/steps/checkout_steps.py:29
+
+Feature: Contact Us # features/contact_us.feature:1
+
+  Scenario: Submit contact form         # features/contact_us.feature:3
+    Given user opens contact us page    # features/steps/contact_us_steps.py:5
+    When user submits contact form      # features/steps/contact_us_steps.py:9
+    Then success message should display # features/steps/contact_us_steps.py:13
+
+Feature: Order Management # features/order_management.feature:1
+
+  Scenario: Verify order history   # features/order_management.feature:3
+    Given user has placed an order # features/steps/order_steps.py:4
+    When user opens order history  # features/steps/order_steps.py:9
+    Then order should be displayed # features/steps/order_steps.py:14
+
+Feature: Product Search # features/product_search.feature:1
+
+  Scenario Outline: Search products -- @1.1   # features/product_search.feature:10
+    Given user opens products page            # features/steps/product_search_steps.py:6
+    When user searches product "Blue Top"     # features/steps/product_search_steps.py:11
+    Then searched product should display      # features/steps/product_search_steps.py:16
+
+Feature: Product Review # features/review_products.feature:1
+
+  Scenario: Submit product review             # features/review_products.feature:3
+    Given user opens product page             # features/steps/review_steps.py:4
+    When user submits review                  # features/steps/review_steps.py:9
+    Then review success message should appear # features/steps/review_steps.py:14
+
+Feature: Shopping Cart # features/shopping_cart.feature:1
+
+  Scenario: Add product to cart            # features/shopping_cart.feature:3
+    Given user opens products page         # features/steps/product_search_steps.py:6
+    When user adds product to cart         # features/steps/cart_steps.py:6
+    Then product should be visible in cart # features/steps/cart_steps.py:18
+
+Feature: Newsletter Subscription # features/subscription.feature:1
+
+  Scenario: Subscribe using valid email    # features/subscription.feature:3
+    Given user opens homepage              # features/steps/subscription_steps.py:5
+    When user subscribes with valid email  # features/steps/subscription_steps.py:10
+    Then subscription should be successful # features/steps/subscription_steps.py:15
+
+Feature: User Login # features/user_login.feature:1
+
+  Feature: User Login  # features/user_login.feature:1
+
+  @smoke
+  Scenario Outline: Login with credentials -- @1.1         # features/user_login.feature:17
+    Given the browser is open                              # features/steps/common_steps.py:3
+    And user navigates to AutomationExercise website       # features/steps/common_steps.py:8
+    Given user opens signup login page                     # features/steps/login_steps.py:5
+      Traceback (most recent call last):
+        File "C:\Users\nazila\Capstone_Project\.venv\Lib\site-packages\behave\model.py", line 1991, in run
+          match.run(runner.context)
+          ~~~~~~~~~^^^^^^^^^^^^^^^^
+        File "C:\Users\nazila\Capstone_Project\.venv\Lib\site-packages\behave\matchers.py", line 105, in run
+          self.func(context, *args, **kwargs)
+          ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "features\steps\login_steps.py", line 8, in open_login
+          context.login_page.open_login_page()
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+        File "C:\Users\nazila\Capstone_Project\Capstone_Project\pages\login_page.py", line 15, in open_login_page
+          self.wait_for_page_load()
+          ~~~~~~~~~~~~~~~~~~~~~~~^^
+        File "C:\Users\nazila\Capstone_Project\Capstone_Project\pages\base_page.py", line 43, in wait_for_page_load
+          self.wait.until(
+          ~~~~~~~~~~~~~~~^
+              lambda d: d.execute_script("return document.readyState") == "complete"
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          )
+          ^
+        File "C:\Users\nazila\Capstone_Project\.venv\Lib\site-packages\selenium\webdriver\support\wait.py", line 121, in until
+          raise TimeoutException(message, screen, stacktrace)
+      selenium.common.exceptions.TimeoutException: Message:
+
+    When user enters email "shaikmusharaf863786@gmail.com" # None
+    And user enters password "Musharaf@786"                # None
+    And user clicks login button                           # None
+    Then user should login successfully                    # None
+----
+CAPTURED LOG: before_scenario
+LOG_INFO:WDM: ====== WebDriver manager ======
+LOG_INFO:WDM: Driver [C:\Users\nazila\.wdm\drivers\chromedriver\win64\148.0.7778.167\chromedriver-win64/chromedriver.exe] found in cache by browser version
+---- CAPTURED_SCENARIO_OUTPUT_END ----
+
+Feature: User Registration # features/user_registration.feature:1
+
+  Feature: User Registration  # features/user_registration.feature:1
+
+  @smoke @regression
+  Scenario: Valid user registration                  # features/user_registration.feature:8
+    Given the browser is open                        # features/steps/common_steps.py:3
+    And user navigates to AutomationExercise website # features/steps/common_steps.py:8
+      Traceback (most recent call last):
+        File "C:\Users\nazila\Capstone_Project\.venv\Lib\site-packages\behave\model.py", line 1991, in run
+          match.run(runner.context)
+          ~~~~~~~~~^^^^^^^^^^^^^^^^
+        File "C:\Users\nazila\Capstone_Project\.venv\Lib\site-packages\behave\matchers.py", line 105, in run
+          self.func(context, *args, **kwargs)
+          ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "features\steps\common_steps.py", line 10, in open_site
+          context.driver.get("https://automationexercise.com")
+          ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\nazila\Capstone_Project\.venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 488, in get
+          self.execute(Command.GET, {"url": url})
+          ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\nazila\Capstone_Project\.venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 468, in execute
+          self.error_handler.check_response(response)
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+        File "C:\Users\nazila\Capstone_Project\.venv\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+          raise exception_class(message, screen, stacktrace)
+      selenium.common.exceptions.WebDriverException: Message: target frame detached: received Inspector.detached event
+        (failed to check if window was closed: disconnected: Unable to receive message from renderer)
+        (Session info: chrome=148.0.7778.168)
+      Stacktrace:
+      	chromedriver!GetHandleVerifier [0x7ff6f8f21e35+2e8d45]
+      	chromedriver!GetHandleVerifier [0x7ff6f8c4e6c0+155d0]
+      	chromedriver!(No symbol) [0x7ff6f899d57d]
+      	chromedriver!(No symbol) [0x7ff6f898ba5e]
+      	chromedriver!(No symbol) [0x7ff6f898a9ef]
+      	chromedriver!(No symbol) [0x7ff6f898a1fb]
+      	chromedriver!(No symbol) [0x7ff6f8989eb1]
+      	chromedriver!(No symbol) [0x7ff6f8987afb]
+      	chromedriver!(No symbol) [0x7ff6f8988242]
+      	chromedriver!(No symbol) [0x7ff6f89a1836]
+      	chromedriver!(No symbol) [0x7ff6f8a45a74]
+      	chromedriver!(No symbol) [0x7ff6f8a1fe6a]
+      	chromedriver!(No symbol) [0x7ff6f8a44c63]
+      	chromedriver!(No symbol) [0x7ff6f89e9d58]
+      	chromedriver!(No symbol) [0x7ff6f89eac43]
+      	chromedriver!GetHandleVerifier [0x7ff6f8f4dab9+3149c9]
+      	chromedriver!GetHandleVerifier [0x7ff6f8f4802b+30ef3b]
+      	chromedriver!GetHandleVerifier [0x7ff6f8f6c872+333782]
+      	chromedriver!GetHandleVerifier [0x7ff6f8c6b785+32695]
+      	chromedriver!GetHandleVerifier [0x7ff6f8c742bc+3b1cc]
+      	chromedriver!GetHandleVerifier [0x7ff6f8c57f24+1ee34]
+      	chromedriver!GetHandleVerifier [0x7ff6f8c580b4+1efc4]
+      	chromedriver!GetHandleVerifier [0x7ff6f8c3bf27+2e37]
+      	KERNEL32!BaseThreadInitThunk [0x7ff88193e957+17]
+      	ntdll!RtlUserThreadStart [0x7ff88282427c+2c]
+
