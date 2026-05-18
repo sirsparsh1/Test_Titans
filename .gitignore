@@ -1,1 +1,4 @@
--e\nLib/\nScripts/\npyvenv.cfg
+Lib/
+Scripts/
+pyvenv.cfg
+.gitignore~
