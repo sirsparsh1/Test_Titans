@@ -5,10 +5,12 @@ from pages.products_page import ProductsPage
 @when('user selects brand "{brand}"')
 def select_brand(context, brand):
 
-    ProductsPage(context.driver).select_brand(brand)
+    ProductsPage(
+        context.driver
+    ).select_brand(brand)
 
 
-@then("brand products should be displayed")
+@then('brand products should be displayed')
 def verify_brand(context):
 
     assert ProductsPage(

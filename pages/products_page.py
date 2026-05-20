@@ -1,10 +1,9 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 
 
 class ProductsPage(BasePage):
-
-
 
     PRODUCTS_LINK = (
         By.XPATH,
@@ -51,14 +50,14 @@ class ProductsPage(BasePage):
         "//h2[contains(text(),'Brand -')]"
     )
 
- 
     def open_products_page(self):
+
+        self.driver.get(
+            "https://automationexercise.com/products"
+        )
 
         self.wait_for_page_load()
 
-        self.click(self.PRODUCTS_LINK)
-
-  
     def search_product(self, product):
 
         self.enter_text(
@@ -66,9 +65,10 @@ class ProductsPage(BasePage):
             product
         )
 
-        self.click(self.SEARCH_BTN)
+        self.click(
+            self.SEARCH_BTN
+        )
 
-   
     def is_product_visible(self):
 
         products = self.driver.find_elements(
@@ -77,44 +77,100 @@ class ProductsPage(BasePage):
 
         return len(products) > 0
 
-   
     def is_searched_product_displayed(self):
 
         return self.is_visible(
             self.SEARCHED_PRODUCT
         )
 
-
     def open_first_product(self):
 
-        self.click(self.FIRST_PRODUCT)
+        self.click(
+            self.FIRST_PRODUCT
+        )
 
-    
     def add_first_product_to_cart(self):
 
-        self.click(self.ADD_TO_CART_BTN)
+        self._remove_ads()
+
+        element = self.wait.until(
+            EC.element_to_be_clickable(
+                self.ADD_TO_CART_BTN
+            )
+        )
+
+        self.driver.execute_script(
+            "arguments[0].scrollIntoView(true);",
+            element
+        )
+
+        self.driver.execute_script(
+            "arguments[0].click();",
+            element
+        )
 
         try:
 
-            self.click(
-                self.CONTINUE_SHOPPING
+            continue_btn = self.wait.until(
+                EC.element_to_be_clickable(
+                    self.CONTINUE_SHOPPING
+                )
+            )
+
+            self.driver.execute_script(
+                "arguments[0].click();",
+                continue_btn
             )
 
         except:
             pass
 
     def select_brand(self, brand):
+        self._remove_ads()
+
+        self.wait_for_page_load()
 
         brand_xpath = (
-            By.XPATH,
-            f"//div[@class='brands_products']//a[contains(text(),'{brand}')]"
+        By.XPATH,
+        f"//a[@href='/brand_products/{brand}']"
+         )
+
+        element = self.wait.until(
+        EC.presence_of_element_located(
+            brand_xpath
+        )
         )
 
-        self.click(brand_xpath)
+        self.driver.execute_script(
+        "arguments[0].scrollIntoView({block: 'center'});",
+        element
+        )
 
-  
+        self.wait.until(
+        EC.element_to_be_clickable(
+            brand_xpath
+        )
+        )
+
+        self.driver.execute_script(
+        "arguments[0].click();",
+        element
+        )
+
+        self.wait_for_page_load()
+
     def is_brand_page_displayed(self):
 
-        return self.is_visible(
-            self.BRAND_PRODUCTS
-        )
+        return self.wait.until(
+            EC.visibility_of_element_located(
+                self.BRAND_PRODUCTS
+            )
+        ).is_displayed()
+
+    def _remove_ads(self):
+
+        self.driver.execute_script("""
+            document.querySelectorAll('iframe').forEach(
+                e => e.remove()
+            );
+        """)

@@ -1,0 +1,4 @@
+email,password,type
+test@test.com,Test@123,valid
+wrong@test.com,wrong123,invalid
+empty@test.com,,invalid

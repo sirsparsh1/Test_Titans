@@ -5,61 +5,76 @@ from pages.base_page import BasePage
 
 class CheckoutPage(BasePage):
 
-    CART_LINK = (By.XPATH, "//a[@href='/view_cart']")
-    CHECKOUT = (By.XPATH, "//a[contains(text(),'Proceed To Checkout')]")
-    PLACE_ORDER = (By.XPATH, "//a[contains(text(),'Place Order')]")
+    CART_BUTTON = (
+        By.XPATH,
+        "//a[@href='/view_cart']"
+    )
 
-    NAME_ON_CARD = (By.NAME, "name_on_card")
-    CARD_NUMBER = (By.NAME, "card_number")
-    CVC = (By.NAME, "cvc")
-    EXPIRY_MONTH = (By.NAME, "expiry_month")
-    EXPIRY_YEAR = (By.NAME, "expiry_year")
-    PAY_BUTTON = (By.ID, "submit")
+    PROCEED_TO_CHECKOUT = (
+        By.XPATH,
+        "//a[contains(text(),'Proceed To Checkout')]"
+    )
 
-    SUCCESS_MSG = (By.XPATH, "//*[contains(text(),'Congratulations')]")
+    REGISTER_LOGIN = (
+        By.XPATH,
+        "//u[contains(text(),'Register / Login')]"
+    )
 
-  
+    COMMENT_BOX = (
+        By.NAME,
+        "message"
+    )
+
+    PLACE_ORDER = (
+        By.XPATH,
+        "//a[contains(text(),'Place Order')]"
+    )
+
+    SUCCESS_TEXT = (
+        By.XPATH,
+        "//*[contains(text(),'Order Placed')]"
+    )
 
     def open_cart(self):
-        self._remove_ads()
 
-        element = self.wait.until(
-            EC.element_to_be_clickable(self.CART_LINK)
-        )
-        self.driver.execute_script("arguments[0].click();", element)
+        self.click(self.CART_BUTTON)
+
+    def proceed_checkout(self):
+
+        self.click(self.PROCEED_TO_CHECKOUT)
+
+    def click_register_login(self):
+
+        self.wait.until(
+            EC.visibility_of_element_located(
+                self.REGISTER_LOGIN
+            )
+        ).click()
+
+    def add_comment(self, text="Automation Order"):
+
+        self.wait.until(
+            EC.visibility_of_element_located(
+                self.COMMENT_BOX
+            )
+        ).send_keys(text)
 
     def place_order(self):
-        self.open_cart()
 
-        self._safe_click(self.CHECKOUT)
-        self._safe_click(self.PLACE_ORDER)
-
-    def fill_payment_details(self):
-
-        self._remove_ads()
-
-        self.enter_text(self.NAME_ON_CARD, "Test User")
-        self.enter_text(self.CARD_NUMBER, "4111111111111111")
-        self.enter_text(self.CVC, "123")
-        self.enter_text(self.EXPIRY_MONTH, "12")
-        self.enter_text(self.EXPIRY_YEAR, "2028")
-
-        self._safe_click(self.PAY_BUTTON)
+        self.wait.until(
+            EC.element_to_be_clickable(
+                self.PLACE_ORDER
+            )
+        ).click()
 
     def is_order_successful(self):
-        return self.wait.until(
-            EC.visibility_of_element_located(self.SUCCESS_MSG)
-        ).is_displayed()
 
-   
+        try:
+            return self.wait.until(
+                EC.visibility_of_element_located(
+                    self.SUCCESS_TEXT
+                )
+            ).is_displayed()
 
-    def _remove_ads(self):
-        self.driver.execute_script("""
-            document.querySelectorAll('iframe').forEach(e => e.remove());
-        """)
-
-    def _safe_click(self, locator):
-        element = self.wait.until(
-            EC.element_to_be_clickable(locator)
-        )
-        self.driver.execute_script("arguments[0].click();", element)
+        except:
+            return False
