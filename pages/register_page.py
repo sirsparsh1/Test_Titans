@@ -91,7 +91,10 @@ class RegisterPage(BasePage):
 
         self.driver.find_element(*self.MOBILE).send_keys("9876543210")
 
-        self.driver.find_element(*self.CREATE_ACCOUNT).click()
+        btn = self.driver.find_element(*self.CREATE_ACCOUNT)
+        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", btn)
+        self.remove_ads()
+        self.driver.execute_script("arguments[0].click();", btn)
 
         # Wait for success message
         self.wait.until(

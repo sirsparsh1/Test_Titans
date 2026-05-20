@@ -29,7 +29,16 @@ class BasePage:
         except:
             self.driver.execute_script("arguments[0].click();", element)
 
+    def remove_ads(self):
+        try:
+            self.driver.execute_script("""
+                document.querySelectorAll('iframe[id^="aswift_"], iframe[id^="google_ads_"], ins.adsbygoogle').forEach(el => el.remove());
+            """)
+        except:
+            pass
+
     def enter_text(self, locator, text):
+        self.remove_ads()
         element = self.wait.until(
             EC.visibility_of_element_located(locator)
         )

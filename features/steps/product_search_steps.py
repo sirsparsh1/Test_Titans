@@ -5,7 +5,10 @@ from pages.products_page import ProductsPage
 
 @given('user opens products page')
 def open_products(context):
-    HomePage(context.driver).open_products_page()
+    context.driver.get("https://automationexercise.com/products")
+    context.driver.execute_script("""
+        document.querySelectorAll('iframe[id^="aswift_"], ins.adsbygoogle').forEach(el => el.remove());
+    """)
 
 
 @when('user searches product "{product}"')

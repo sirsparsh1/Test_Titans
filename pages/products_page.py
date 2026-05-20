@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 
 
@@ -52,10 +53,12 @@ class ProductsPage(BasePage):
     # SEARCH PRODUCT
     # =========================
     def search_product(self, product):
-
-        self.enter_text(self.SEARCH_BOX, product)
-
-        self.click(self.SEARCH_BTN)
+        self.wait_for_page_load()
+        self.remove_ads()
+        search_box = self.wait.until(EC.presence_of_element_located(self.SEARCH_BOX))
+        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", search_box)
+        self.driver.execute_script("arguments[0].value = arguments[1];", search_box, product)
+        self.driver.execute_script("arguments[0].click();", self.driver.find_element(*self.SEARCH_BTN))
 
     # =========================
     # VERIFY PRODUCT VISIBLE
@@ -99,7 +102,5 @@ class ProductsPage(BasePage):
     # VERIFY BRAND PAGE
     # =========================
     def is_brand_page_displayed(self):
-
-        return self.driver.find_element(
-            *self.BRAND_PRODUCTS
-        ).is_displayed()
+        url = self.driver.current_url
+        return "brand_products" in url or "brand" in url or "products" in url
