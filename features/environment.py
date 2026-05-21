@@ -32,4 +32,5 @@ def after_scenario(context, scenario):
 
     time.sleep(3)
 
-    context.driver.quit()
+    if hasattr(context, 'driver') and context.driver:
+        context.driver.quit()
