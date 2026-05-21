@@ -14,4 +14,4 @@ def subscribe(context):
 
 @then('subscription should be successful')
 def verify_subscription(context):
-    assert True
+    assert HomePage(context.driver).is_subscription_successful()
