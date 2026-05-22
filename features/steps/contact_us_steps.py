@@ -1,15 +1,29 @@
-from behave import given, when, then
-from pages.home_page import HomePage
+from behave import *
 from pages.contact_us_page import ContactUsPage
 
-@given(u'user opens contact us page')
-def step_impl(context):
-    HomePage(context.driver).click(HomePage.CONTACT_US_LINK)
 
-@when(u'user submits contact form')
-def step_impl(context):
-    ContactUsPage(context.driver).submit_form("Test User", "test@example.com", "Test Message")
+@given("user opens contact us page")
+def open_contact(context):
 
-@then(u'success message should display')
-def step_impl(context):
-    assert ContactUsPage(context.driver).verify_success()
+    context.contact_page = ContactUsPage(
+        context.driver
+    )
+
+    context.contact_page.open_contact_page()
+
+
+@when("user submits contact form")
+def submit_contact(context):
+
+    context.contact_page.submit_form(
+        "Shaik",
+        "shaik@gmail.com",
+        "Automation Testing",
+        "This is automation testing message"
+    )
+
+
+@then("success message should display")
+def verify_success(context):
+
+    assert context.contact_page.is_success()
