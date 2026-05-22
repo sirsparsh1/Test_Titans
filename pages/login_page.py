@@ -103,3 +103,12 @@ class LoginPage(BasePage):
                 e => e.remove()
             );
         """)
+
+    def login(self, email, password):
+        self.open_login_page()
+
+        self.enter_email(email)
+
+        self.enter_password(password)
+
+        self.click_login()

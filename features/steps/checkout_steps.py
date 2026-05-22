@@ -23,40 +23,56 @@ def checkout(context):
         context.driver
     )
 
+    # Open cart
     page.open_cart()
 
+    # Proceed to checkout
     page.proceed_checkout()
 
-    # Popup appears here
+    # Click Register / Login
     page.click_register_login()
 
-    # Login user
+    # Login page
     login = LoginPage(
         context.driver
     )
 
+    # Login with valid credentials
     login.login(
-        "testuser@gmail.com",
-        "test@123"
+    "shaikmusharaf0106@gmail.com",
+    "Musharaf@123"
     )
 
-    # Return to cart
+    # Wait after login
+    context.driver.implicitly_wait(10)
+
+    # Reopen cart after login
     page.open_cart()
 
+    # Proceed checkout again
     page.proceed_checkout()
 
+    # Wait for checkout page
+    page.wait_for_page_load()
+
     # Add comment
-    page.add_comment()
+    page.add_comment(
+        "Automation Test Order"
+    )
 
     # Place order
     page.place_order()
-
+    page.enter_payment_details()
+   
 
 @then("order should place successfully")
 def verify_order(context):
 
-    page = CheckoutPage(
-        context.driver
-    )
+    
+    context.driver.implicitly_wait(15)
 
-    assert page.is_order_successful()
+    current_url = context.driver.current_url
+
+    print("CURRENT URL:", current_url)
+
+    assert "payment_done" in current_url

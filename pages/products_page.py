@@ -126,35 +126,39 @@ class ProductsPage(BasePage):
             pass
 
     def select_brand(self, brand):
+
         self._remove_ads()
 
         self.wait_for_page_load()
 
+        # Scroll to brands section first
+        self.driver.execute_script(
+            "window.scrollBy(0, 700);"
+        )
+
+        # Dynamic xpath for brand
         brand_xpath = (
-        By.XPATH,
-        f"//a[@href='/brand_products/{brand}']"
-         )
+            By.XPATH,
+            f"//div[@class='brands-name']//a[contains(.,'{brand}')]"
+        )
 
+        # Wait for brand visible
         element = self.wait.until(
-        EC.presence_of_element_located(
-            brand_xpath
-        )
+            EC.visibility_of_element_located(
+                brand_xpath
+            )
         )
 
+        # Scroll to element
         self.driver.execute_script(
-        "arguments[0].scrollIntoView({block: 'center'});",
-        element
+            "arguments[0].scrollIntoView({block:'center'});",
+            element
         )
 
-        self.wait.until(
-        EC.element_to_be_clickable(
-            brand_xpath
-        )
-        )
-
+        # Click using JS
         self.driver.execute_script(
-        "arguments[0].click();",
-        element
+            "arguments[0].click();",
+            element
         )
 
         self.wait_for_page_load()
