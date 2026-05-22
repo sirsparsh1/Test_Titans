@@ -1,30 +1,29 @@
-from selenium.webdriver.common.by import By
-from pages.base_page import BasePage
+from behave import *
+from pages.contact_us_page import ContactUsPage
 
 
-class ContactUsPage(BasePage):
+@given("user opens contact us page")
+def open_contact(context):
 
-    NAME = (By.NAME, "name")
-    EMAIL = (By.NAME, "email")
-    MESSAGE = (By.NAME, "message")
-    SUBMIT = (By.NAME, "submit")
-
-    SUCCESS = (
-        By.XPATH,
-        "//*[contains(text(),'Success! Your details have been submitted successfully.')]"
+    context.contact_page = ContactUsPage(
+        context.driver
     )
 
-    def submit_form(self, name, email, msg):
-        self.enter_text(self.NAME, name)
-        self.enter_text(self.EMAIL, email)
-        self.enter_text(self.MESSAGE, msg)
+    context.contact_page.open_contact_page()
 
-        self.click(self.SUBMIT)
 
-        # Accept alert popup
-        self.driver.switch_to.alert.accept()
+@when("user submits contact form")
+def submit_contact(context):
 
-    def verify_success(self):
-        return self.wait.until(
-            lambda d: d.find_element(*self.SUCCESS).is_displayed()
-        )
+    context.contact_page.submit_form(
+        "Shaik",
+        "shaik@gmail.com",
+        "Automation Testing",
+        "This is automation testing message"
+    )
+
+
+@then("success message should display")
+def verify_success(context):
+
+    assert context.contact_page.is_success()

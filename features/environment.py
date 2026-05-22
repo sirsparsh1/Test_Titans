@@ -1,18 +1,21 @@
 from utils.driver_factory import DriverFactory
-import time
+from utils.config_reader import ConfigReader
 
 
 def before_scenario(context, scenario):
 
-    context.driver = DriverFactory.get_driver("chrome")
+    browser = ConfigReader.get_browser()
 
-    context.driver.maximize_window()
+    context.driver = DriverFactory.get_driver(
+        browser
+    )
 
-    context.driver.get("https://automationexercise.com/")
+    context.driver.get(
+        ConfigReader.get_base_url()
+    )
 
 
 def after_scenario(context, scenario):
 
-    time.sleep(3)
-
-    context.driver.quit()
+    if hasattr(context, "driver"):
+        context.driver.quit()
