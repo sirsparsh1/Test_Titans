@@ -7,9 +7,6 @@ This is a **Hybrid Test Automation Framework** for UI and API testing built usin
 - Selenium WebDriver
 - Python
 - Behave (BDD)
-- Pytest
-- Postman
-- Newman
 - Page Object Model (POM)
 
 The framework supports **UI testing + API testing + reporting**.
