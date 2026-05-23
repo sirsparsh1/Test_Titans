@@ -1,39 +1,40 @@
-#  AutomationExercise Framework
+# Test Titans — Hybrid Test Automation Framework
 
-##  Project Overview
-
-This is a **Hybrid Test Automation Framework** for UI and API testing built using:
-
-- Selenium WebDriver
-- Python
-- Behave (BDD)
-- Pytest
-- Postman
-- Newman
-- Page Object Model (POM)
-
-The framework supports **UI testing + API testing + reporting**.
+A streamlined **Hybrid Test Automation Framework** engineered for End-to-End (E2E) UI and API testing on the [AutomationExercise](https://automationexercise.com) platform. It utilizes the Page Object Model (POM) design pattern alongside behavior-driven development principles to deliver clean, scalable, and modular test coverage.
 
 ---
 
-##  Key Highlights
+## 🚀 Key Framework Features
 
-- Hybrid Automation Framework (UI + API)
-- Page Object Model (POM) Design
-- BDD using Behave
-- API Testing using Postman + Newman
-- HTML & Allure Reports
-- Scalable and maintainable structure
+* **Hybrid Verification:** Seamlessly executes browser-based UI automation scenarios concurrently with backend REST API request validations.
+* **Page Object Model (POM):** Decouples page interaction mechanisms and web element definitions from behavioral verification steps.
+* **Ad-Blocking Interception:** Features an embedded script injection layer designed to remove disruptive third-party iframes and overlay elements, eliminating test flakiness during browser navigation.
+* **Dynamic Registrations:** Avoids database constraint limitations by dynamically tracking user data values via runtime generation tools during account setup loops.
+* **Centralized Configuration:** Isolates environmental variables, test endpoints, wait thresholds, and browser choices from the functional code footprint.
 
 ---
 
-##  Project Structure
+## 📂 Core Project Hierarchy
 
-```text
-features/              → Feature files (BDD scenarios)
-features/steps/       → Step definitions
-pages/                → Page Object Model classes
-utils/                → Utilities (Driver, Config Reader)
-data/                 → Test data (if any)
-reports/              → Test reports (HTML / Allure)
-postman/              → API testing (Postman + Newman)
+* **`data/`**: Configuration manifests defining browser execution options and primary target applications.
+* **`features/`**: Human-readable Gherkin DSL test scenarios mapping operational lifecycle actions and behaviors.
+* **`features/steps/`**: Modular behavioral step verification scripts mapping test instructions to page behaviors.
+* **`pages/`**: Structured page view components defining element identifiers and target business logic workflows.
+* **`utils/`**: Driver setup classes and property files handling browser binary setups and config handling.
+
+---
+
+## ⚙️ Prerequisites & Setup
+
+1. **Environment Setup:** Ensure Python 3.11+ is configured inside a virtual environment.
+2. **Dependency Configuration:** Install required alignment boundaries using the pinned project library manifest.
+3. **Automated Drivers:** Browser instances deploy automatically via contextual managers matching your active system environment.
+
+---
+
+## 🏃 Execution Profiles
+
+* **Execute All BDD Specifications:** Parse feature sets and track user actions across all standard feature layers.
+* **Target Specific Subsets:** Group functional execution using custom label tags (e.g., isolating smoke verification checkpoints).
+* **Execute API Directives:** Verify isolated backend API services independently.
+* **Test Reporting:** Review HTML output metrics generated inside the project dashboard folders following execution completion.
